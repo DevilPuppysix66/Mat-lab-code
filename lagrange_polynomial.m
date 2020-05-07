@@ -1,7 +1,9 @@
-syms x x1 y y1 p w;
-x = 16;
-x1 = [10,15,20,22.5];
-y1 = [227.04, 362.78, 517.5, 602.97];
+clear,clc;
+syms x x1 y y1 p w funct;
+%x = 16;
+funct = 0;
+x1 = [-2.2,-.3,.8,1.9];
+y1 = [15.180,10.962,1.920,-2.040];
 p = zeros (length(x1),1);
 px = 0;
 w = 1;
@@ -14,8 +16,19 @@ for i = (1:length(x1))
            w = w * (x - x1(z))/(x1(i)-x1(z));  
         end
     end
-    p(i) = w * y1(i);
-    px = px + p(i);
+    if(isfloat(w))
+        p(i) = w * y1(i);
+        px = px + p(i);
+    else
+        funct = funct + w * y1(i);
+    end
+    
 end
-disp(p)
-disp(px)
+if(isfloat(w))
+    disp(p)
+    disp(px)
+else
+    funct = expand(funct);
+    disp(funct)
+end
+    
